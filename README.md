@@ -28,7 +28,6 @@ Esta API foi projetada para oferecer uma solução simples e escalável para ger
 ## 3. Diagrama de Classes
 
 ```mermaid
-title Diagrama de Classes
 classDiagram
 class Colaborador {
   - id : number
@@ -78,7 +77,7 @@ Adicione a imagem do Diagrama:
 
 1. Clone o repositório:
    ```bash
-   git clone <url-do-repositorio>
+   git clone <https://github.com/Projeto-Integrador-G4-JS06/nest-hr-system>
    ```
 2. Instale as dependências:
    ```bash
