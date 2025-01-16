@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ColaboradorService } from "../services/colaborador.service";
 import { Colaborador } from "../entities/colaborador.entity";
 
@@ -15,4 +15,11 @@ export class ColaboradorController {
         return this.colaboradorService.findAll();
 
     }
+    
+    @Post()
+    @HttpCode(HttpStatus.CREATED)
+    create(@Body() colaborador: Colaborador): Promise<Colaborador>{
+        return this.colaboradorService.create(colaborador)
+    }
+
 }
