@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post,Param,ParseIntPipe, Delete} from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post,Param,ParseIntPipe, Delete, Put} from "@nestjs/common";
 import { ColaboradorService } from "../services/colaborador.service";
 import { Colaborador } from "../entities/colaborador.entity";
 
@@ -35,11 +35,19 @@ export class ColaboradorController {
         return  this.colaboradorService.findByRole(cargo);
     }
 
+    @Put()
+    @HttpCode(HttpStatus.OK)
+    update(@Body() colaborador: Colaborador): Promise<Colaborador>{
+        return this.colaboradorService.update(colaborador);
+    }
+
     @Delete('/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
     delete(@Param('id', ParseIntPipe) id: number) {
         return this.colaboradorService.delete(id);
     }
+
+
 
 }
     

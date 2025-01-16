@@ -5,6 +5,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ColaboradorService {
+  update(colaborador: Colaborador): Promise<Colaborador> {
+      throw new Error("Method not implemented.");
+  }
 
   constructor(
     @InjectRepository(Colaborador)
