@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { Colaborador } from './colaborador/entities/colaborador.entity';
+import { ColaboradorController } from './colaborador/controllers/colaborador.controller';
+import { ColaboradorModule } from './colaborador/colaborador.module';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { Colaborador } from './colaborador/entities/colaborador.entity';
       synchronize: true,
       logging: true,
     }),
+    ColaboradorModule,
   ],
   controllers: [],
   providers: [],
