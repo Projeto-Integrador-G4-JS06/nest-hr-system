@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ColaboradorService {
+ 
 
   constructor(
     @InjectRepository(Colaborador)
@@ -46,6 +47,15 @@ export class ColaboradorService {
 
   }
 
+  async update(colaborador: Colaborador): Promise<Colaborador> {
+
+    await this.findById(colaborador.id) // Se eu passar o 'colaborador.id', ele entende que será uma atualização, pois verificará a existência do 'id'
+
+
+    return await this.colaboradorRepository.save(colaborador);
+
+}
+
   async delete(id: number): Promise<DeleteResult> {
  
     await this.findById(id);
@@ -53,5 +63,6 @@ export class ColaboradorService {
     return await this.colaboradorRepository.delete(id);
     
   }
+
   
 }
