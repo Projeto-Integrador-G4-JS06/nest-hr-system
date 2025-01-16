@@ -1,35 +1,39 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { Colaborador } from "../entities/colaborador.entity";
-import { Repository } from "typeorm";
-import { InjectRepository } from "@nestjs/typeorm";
-
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Colaborador } from '../entities/colaborador.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class ColaboradorService{
+export class ColaboradorService {
+  constructor(
+    @InjectRepository(Colaborador)
+    private colaboradorRepository: Repository<Colaborador>,
+    private colaboradorService: ColaboradorService,
+  ) {}
 
-    constructor (
-        @InjectRepository (Colaborador)
-        private colaboradorRepository: Repository<Colaborador>
-        
-    ){}
+  async findAll(): Promise<Colaborador[]> {
+    return await this.colaboradorRepository.find();
+  }
+  async findById(id: number): Promise<Colaborador> {
+    //SELECT * FROM tb_postagens WHERE id = ?;
+    const colaborador = await this.colaboradorRepository.findOne({
+      where: {
+        id,
+      },
+    });
 
-    async findAll(): Promise<Colaborador[]>{
-        return await this.colaboradorRepository.find();
-    }
+    if (!colaborador)
+      throw new HttpException(
+        'Colaborador não encontrado',
+        HttpStatus.NOT_FOUND,
+      );
 
-    async findById(id: number): Promise<Colaborador>{
-       
-        //SELECT * FROM tb_postagens WHERE id = ?;
-        const colaborador = await this.colaboradorRepository.findOne({
-            where: {
-                id
-            }        
-        });
+    return colaborador;
+  }
 
-        
-        if(!colaborador)
-            throw new HttpException('Colaborador não encontrado',HttpStatus.NOT_FOUND);
-        
-        return colaborador;
-    }
+  async create(colaborador: Colaborador): Promise<Colaborador> {
+    await this.colaboradorService.findById(colaborador.id);
+    return await this.colaboradorRepository.save(colaborador);
+  }
+  
 }
