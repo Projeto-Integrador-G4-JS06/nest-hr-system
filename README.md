@@ -77,7 +77,7 @@ Adicione a imagem do Diagrama:
 
 1. Clone o repositório:
    ```bash
-   git clone <https://github.com/Projeto-Integrador-G4-JS06/nest-hr-system>
+   git clone https://github.com/Projeto-Integrador-G4-JS06/nest-hr-system
    ```
 2. Instale as dependências:
    ```bash
