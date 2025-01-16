@@ -7,11 +7,15 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+// Define a entidade "Colaborador", mapeando para a tabela "tb_colaboradores"
 @Entity({ name: 'tb_colaboradores' })
 export class Colaborador {
+  // Define a coluna "id" como chave primária gerada automaticamente
   @PrimaryGeneratedColumn()
   id: number;
 
+  // Aplica validação para que a coluna não seja vazia
+  // Remove espaços extras no valor (se houver)
   @Transform(({ value }: TransformFnParams) => value?.trim())
   @IsNotEmpty()
   @Column({ length: 14, nullable: false })
@@ -32,11 +36,15 @@ export class Colaborador {
   @Column({ length: 255, nullable: false })
   email: string;
 
+  // Define a coluna "foto" (opcional), aplicando validação para que não seja vazia
   @Transform(({ value }: TransformFnParams) => value?.trim())
   @IsNotEmpty()
   @Column({ length: 5000, nullable: true })
   foto: string;
 
+  // Define a coluna "salario", aplicando validações:
+  // Deve ser um número, não pode ser vazio, e deve ser maior ou igual a 0
+  // Converte strings para números (se necessário)
   @Transform(({ value }: { value: string }) => parseFloat(value)) // Converte string para número, caso necessário
   @IsNotEmpty()
   @IsNumber() // Validação: deve ser um número
@@ -54,6 +62,7 @@ export class Colaborador {
   @Column({ length: 255, nullable: false })
   data_contratacao: string;
 
+  // Coluna de atualização automática da data (manipulada pelo TypeORM)
   @UpdateDateColumn()
   data: Date;
 }
