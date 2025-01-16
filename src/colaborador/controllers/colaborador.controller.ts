@@ -13,26 +13,24 @@ export class ColaboradorController {
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Colaborador[]>{
         return this.colaboradorService.findAll();
-
     }
 
     @Get('/:id')
     @HttpCode(HttpStatus.OK) 
     findById(@Param('id', ParseIntPipe) id: number): Promise<Colaborador> {
         return  this.colaboradorService.findById(id);
+    }
 
+    @Get('/cargo/:cargo')
+    @HttpCode(HttpStatus.OK) 
+    findByRole(@Param('cargo') cargo: string): Promise<Colaborador[]> {
+        return  this.colaboradorService.findByRole(cargo);
     }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
     create(@Body() colaborador: Colaborador): Promise<Colaborador>{
         return this.colaboradorService.create(colaborador)
-    }
-
-    @Get('/cargo/:cargo')
-    @HttpCode(HttpStatus.OK) 
-    findByCargo(@Param('cargo') cargo: string): Promise<Colaborador[]> {
-        return  this.colaboradorService.findByRole(cargo);
     }
 
     @Put()

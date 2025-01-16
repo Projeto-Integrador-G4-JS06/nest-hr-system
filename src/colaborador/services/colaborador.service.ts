@@ -17,7 +17,7 @@ export class ColaboradorService {
   }
 
   async findById(id: number): Promise<Colaborador> {
-    //SELECT * FROM tb_postagens WHERE id = ?;
+    
     const colaborador = await this.colaboradorRepository.findOne({
       where: {
         id,
@@ -49,8 +49,7 @@ export class ColaboradorService {
 
   async update(colaborador: Colaborador): Promise<Colaborador> {
 
-    await this.findById(colaborador.id) // Se eu passar o 'colaborador.id', ele entende que será uma atualização, pois verificará a existência do 'id'
-
+    await this.findById(colaborador.id)
 
     return await this.colaboradorRepository.save(colaborador);
 
